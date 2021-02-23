@@ -3,13 +3,31 @@ const system = {
   holding: false,
 };
 
+const raiseToTop = (() => {
+  // todo: lower z-indices some time
+  let index = 1;
+  return (card) => {
+    index++;
+    card.style.setProperty("z-index", `${index}`);
+  };
+})();
+
 function init() {
-  document.querySelectorAll(".draggable").forEach(makeDraggable);
+  document.querySelectorAll(".card").forEach(initCard);
   document.addEventListener("mouseup", () => {
     system.node = null;
     system.holding = false;
   });
   document.addEventListener("mousemove", handleMove);
+  makeDraggable(document.querySelector(".main-view"));
+}
+
+function initCard(node) {
+  makeDraggable(node);
+  // node.addEventListener("click", () => {
+  //   console.log("click card");
+  //   raiseToTop(node);
+  // });
 }
 
 function makeDraggable(node) {
@@ -20,6 +38,7 @@ function makeDraggable(node) {
 
 function startHolding(event, node) {
   if (system.holding) return;
+  raiseToTop(node);
   system.node = node;
   system.holding = true;
   system.x = event.clientX;
@@ -30,10 +49,10 @@ function startHolding(event, node) {
 
 function handleMove(event) {
   if (system.holding) {
-    const x = event.clientX - system.x + system.ox;
-    const y = event.clientY - system.y + system.oy;
-    system.node.style.setProperty("--x", x);
-    system.node.style.setProperty("--y", y);
+    const dx = event.clientX - system.x;
+    const dy = event.clientY - system.y;
+    system.node.style.setProperty("--x", dx + system.ox);
+    system.node.style.setProperty("--y", dy + system.oy);
   }
 }
 

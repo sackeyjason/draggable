@@ -1,18 +1,60 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 :root {
   background: #f0f0f0;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-.panel {
+.page {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+}
+
+.toolbar {
+  width: 3rem;
+  background: #222;
+  display: none;
+}
+
+.main-view {
+  overflow: hidden;
+  height: 100%;
+  flex-grow: 1;
+  position: relative;
+  --scroll-x: calc(var(--x, 0) * 1px);
+  --scroll-y: calc(var(--y, 0) * 1px);
+  background: linear-gradient(180deg, lightblue 0, white 20%, white);
+}
+
+.space {
+  transform: translate(var(--scroll-x), var(--scroll-y));
+}
+
+.card {
   border: solid 1px;
   padding: 1rem;
-  background: silver;
+  background: #fff;
   width: 400px;
+  position: absolute;
+  min-height: 200px;
 }
 
 .draggable {
+  user-select: none;
+
+  --x: 0;
+  --y: 0;
   --xpx: calc(1px * var(--x));
   --ypx: calc(1px * var(--y));
+
+  /* no scroll */
   transform: translate(var(--xpx), var(--ypx));
-  user-select: none;
+
+  /* --tx: calc(var(--xpx) + var(--scroll-x));
+  --ty: calc(var(--ypx) + var(--scroll-y));
+  transform: translate(var(--tx), var(--ty)); */
 }

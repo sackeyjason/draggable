@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>📝</title>
     <link
       rel="stylesheet"
       href="style.css
@@ -11,22 +11,33 @@
     />
   </head>
   <body>
-    <h1>Behold, draggable boxes</h1>
-    <div class="draggable panel">
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias vel
-        inventore a aperiam iusto unde, assumenda perferendis aliquid cum nisi
-        sunt repellat eum suscipit aspernatur iure eos maxime reiciendis ipsam.
-      </p>
+    <div class="page">
+      <div class="toolbar">
+        <div>📝</div>
+        <button>+</button>
+      </div>
+      <main class="main-view">
+        <div class="space">
+          <div class="draggable card" style="--x: 20; --y: 20">
+            <p>You can drag these cards, and drag the background to scroll</p>
+          </div>
+          <div class="draggable card" style="--x: 463; --y: 172">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Molestias vel inventore a aperiam iusto unde, assumenda
+              perferendis aliquid cum nisi sunt repellat eum suscipit aspernatur
+              iure eos maxime reiciendis ipsam.
+            </p>
+          </div>
+        </div>
+        <a
+          href="https://github.com/sackeyjason/draggable"
+          style="position: absolute; bottom: 0"
+          >Source, etc.</a
+        >
+      </main>
     </div>
-    <div class="draggable panel">
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias vel
-        inventore a aperiam iusto unde, assumenda perferendis aliquid cum nisi
-        sunt repellat eum suscipit aspernatur iure eos maxime reiciendis ipsam.
-      </p>
-    </div>
-    <a href="https://github.com/sackeyjason/draggable">Source, etc.</a>
-    <script src="script.js"></script>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
