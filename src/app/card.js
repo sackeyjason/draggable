@@ -1,4 +1,4 @@
-import { makeDraggable } from "/src/app/drag.js";
+import { makeDraggable } from "./drag.js";
 
 function init(node) {
   makeDraggable(node);
