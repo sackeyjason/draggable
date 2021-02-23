@@ -12,27 +12,9 @@ const raiseToTop = (() => {
   };
 })();
 
-function init() {
-  document.querySelectorAll(".card").forEach(initCard);
-  document.addEventListener("mouseup", () => {
-    system.node = null;
-    system.holding = false;
-  });
-  document.addEventListener("mousemove", handleMove);
-  makeDraggable(document.querySelector(".main-view"));
-}
-
-function initCard(node) {
-  makeDraggable(node);
-  // node.addEventListener("click", () => {
-  //   console.log("click card");
-  //   raiseToTop(node);
-  // });
-}
-
 function makeDraggable(node) {
   node.addEventListener("mousedown", (event) => {
-    startHolding(event, node);
+    startHolding(event, node, system);
   });
 }
 
@@ -47,6 +29,14 @@ function startHolding(event, node) {
   system.oy = +node.style.getPropertyValue("--y") || 0;
 }
 
+function init(document) {
+  document.addEventListener("mouseup", () => {
+    system.node = null;
+    system.holding = false;
+  });
+  document.addEventListener("mousemove", handleMove);
+}
+
 function handleMove(event) {
   if (system.holding) {
     const dx = event.clientX - system.x;
@@ -56,4 +46,4 @@ function handleMove(event) {
   }
 }
 
-init();
+export { init, makeDraggable };
