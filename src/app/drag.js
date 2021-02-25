@@ -17,6 +17,7 @@ function makeDraggable(node) {
     startHolding(event, node);
   });
   node.addEventListener("touchstart", (event) => {
+    // no native swipe-scroll
     if (!["A"].includes(event.target.nodeName)) {
       event.preventDefault();
     }
@@ -32,8 +33,11 @@ function startHolding(event, node) {
   let [x, y] = getClientCoords(event);
   system.x = x;
   system.y = y;
+
+  // original coords
   system.ox = +node.style.getPropertyValue("--x") || 0;
   system.oy = +node.style.getPropertyValue("--y") || 0;
+  system.zoomFactor = getComputedStyle(node).getPropertyValue("--zoom");
 }
 
 function getClientCoords(event) {
@@ -45,16 +49,15 @@ function getClientCoords(event) {
 }
 
 function init(document) {
-  document.addEventListener("mouseup", () => {
-    system.node = null;
-    system.holding = false;
-  });
-  document.addEventListener("touchend", () => {
-    system.node = null;
-    system.holding = false;
-  });
+  document.addEventListener("mouseup", endHold);
+  document.addEventListener("touchend", endHold);
   document.addEventListener("mousemove", handleMove);
   document.addEventListener("touchmove", handleMove);
+}
+
+function endHold() {
+  system.node = null;
+  system.holding = false;
 }
 
 function handleMove(event) {
@@ -62,8 +65,12 @@ function handleMove(event) {
     const [clientX, clientY] = getClientCoords(event);
     const dx = clientX - system.x;
     const dy = clientY - system.y;
-    system.node.style.setProperty("--x", dx + system.ox);
-    system.node.style.setProperty("--y", dy + system.oy);
+
+    const x = dx / system.zoomFactor + system.ox;
+    const y = dy / system.zoomFactor + system.oy;
+
+    system.node.style.setProperty("--x", x);
+    system.node.style.setProperty("--y", y);
   }
 }
 

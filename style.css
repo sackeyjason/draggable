@@ -7,6 +7,7 @@
   background: #f0f0f0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --zoom: 1;
 }
 
 .page {
@@ -32,7 +33,10 @@
 }
 
 .space {
-  transform: translate(var(--scroll-x), var(--scroll-y));
+  transform-origin: calc(50% + calc(-1 * var(--scroll-x)))
+    calc(50% + calc(-1 * var(--scroll-y)));
+  transform: translate(var(--scroll-x), var(--scroll-y)) scale(var(--zoom, 1));
+  height: 100%;
 }
 
 .card {
@@ -53,11 +57,5 @@
   --y: 0;
   --xpx: calc(1px * var(--x));
   --ypx: calc(1px * var(--y));
-
-  /* no scroll */
   transform: translate(var(--xpx), var(--ypx));
-
-  /* --tx: calc(var(--xpx) + var(--scroll-x));
-  --ty: calc(var(--ypx) + var(--scroll-y));
-  transform: translate(var(--tx), var(--ty)); */
 }
