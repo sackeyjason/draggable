@@ -19,7 +19,15 @@
 .toolbar {
   width: 3rem;
   background: #222;
-  display: none;
+  display: flex;
+  flex-direction: column;
+  place-items: flex-start center;
+}
+
+.tool-section {
+  border-top: 1px solid silver;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .main-view {

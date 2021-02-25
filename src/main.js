@@ -11,13 +11,11 @@ function init() {
     if (event.key === "z") zoom(1);
     if (event.key === "x") zoom(-1);
   });
+  document.getElementById("zoomIn").addEventListener("click", () => zoom(1));
+  document.getElementById("zoomOut").addEventListener("click", () => zoom(-1));
 }
 
 function zoom(amount) {
-  const viewStyle = document.querySelector(".main-view").style;
-  const x = +viewStyle.getPropertyValue("--x");
-  const y = +viewStyle.getPropertyValue("--y");
-
   zoomLevel += amount * 0.25;
   const zoom = Math.pow(2, zoomLevel);
   document.querySelector(".main-view").style.setProperty("--zoom", zoom);
